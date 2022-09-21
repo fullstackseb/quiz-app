@@ -11,9 +11,12 @@ const a_text = document.querySelector('#a_text')
 const b_text = document.querySelector('#b_text')
 const c_text = document.querySelector('#c_text')
 const d_text = document.querySelector('#d_text')
+const questions_total = document.querySelector('#questions_total')
+const questions_current = document.querySelector('#questions_current')
 
 let counterCorrect = 0
 let counterTotal = 0
+let counterCurrent = 1
 
 let quizData = [
   {
@@ -34,7 +37,7 @@ let quizData = [
   {
     correctAnswer: 'd',
     allAnswers: ['Dragonfly', 'Mayfly', 'Horsefly', 'Butterfly'],
-    question: 'Which Swimming Stroke Was Introduced Into Competition In 1952',
+    question: 'Which Swimming Stroke Was Introduced Into Competition In 1952?',
   },
   {
     correctAnswer: 'd',
@@ -48,6 +51,8 @@ createQuestion(quizData[counterTotal])
 
 function createQuestion(questionData) {
   deselectAnswers()
+  questions_total.innerText = quizData.length
+  questions_current.innerText = counterCurrent
   question.innerText = questionData.question
   a_text.innerText = questionData.allAnswers[0]
   b_text.innerText = questionData.allAnswers[1]
@@ -65,6 +70,7 @@ btnSubmit.addEventListener('click', () => {
     }
   }
   counterTotal++
+  counterCurrent++
 
   if (counterTotal < quizData.length) {
     createQuestion(quizData[counterTotal])
@@ -97,4 +103,8 @@ function finishQuiz() {
     <button onclick=location.reload()>Reload</button>
   `
   quiz.innerHTML = questionHTML
+
+  counterCorrect = 0
+  counterTotal = 0
+  counterCurrent = 1
 }
